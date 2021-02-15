@@ -38,8 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         navigatesignup.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         });
-
-
     }
 
     private void login(String username, String password) {
@@ -47,15 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         ParseUser.logInInBackground(username, password, (parseUser, e) -> {
             progressDialog.dismiss();
             if (parseUser != null) {
-                if (parseUser.getBoolean("emailVerified")) {
-                    showAlert("Login Successful", "Welcome, " + username + "!", false);
-                } else {
-                    ParseUser.logOut();
-                    showAlert("Login Fail", "Please Verify Your Email first", true);
-                }
+                showAlert("Login Successful", "Welcome, " + username + "!", false);
             } else {
                 ParseUser.logOut();
-                showAlert("Login Fail", e.getMessage() + " Please re-try", true);
+                showAlert("Login Fail", e.getMessage() + " Please try again", true);
             }
         });
     }
